@@ -618,6 +618,7 @@ def reject_password(request_id):
 
 
 UPLOAD_FOLDER = "static/uploads/gallery"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @admin.route('/admin/gallery', methods=['GET', 'POST'])
 def gallery():
