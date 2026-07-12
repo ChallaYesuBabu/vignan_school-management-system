@@ -219,10 +219,25 @@ def edit_student(id):
             {"_id": ObjectId(id)},
             {
                 "$set": {
-                    "name": request.form['name'],
-                    "class": request.form['class'],
-                    "father_name": request.form['father_name'],
-                    "phone": request.form['phone']
+                    "admission_no": request.form.get("admission_no"),
+                    "student_id": request.form.get("student_id"),
+                    "roll_no": request.form.get("roll_no"),
+                    "name": request.form.get("name"),
+                    "class": request.form.get("class"),
+                    "section": request.form.get("section"),
+                    "joining_date": request.form.get("joining_date"),
+                    "dob": request.form.get("dob"),
+                    "gender": request.form.get("gender"),
+                    "father_name": request.form.get("father_name"),
+                    "mother_name": request.form.get("mother_name"),
+                    "father_phone": request.form.get("father_phone"),
+                    "mother_phone": request.form.get("mother_phone"),
+                    "address": request.form.get("address"),
+                    "caste": request.form.get("caste"),
+                    "aadhaar": request.form.get("aadhaar"),
+                    "blood_group": request.form.get("blood_group"),
+                    "previous_school": request.form.get("previous_school"),
+                    "emergency_contact": request.form.get("emergency_contact")
                 }
             }
         )
