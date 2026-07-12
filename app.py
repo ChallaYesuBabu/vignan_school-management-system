@@ -1,10 +1,10 @@
 from flask import Flask,redirect, Response
+from flask import send_from_directory
 from config import Config
 from routes.auth_routes import auth
 from routes.admin_routes import admin
 from routes.faculty_routes import faculty
 from routes.student_routes import student
-from flask import send_from_directory
 
 app = Flask(__name__)
 app.config.from_object(Config)
