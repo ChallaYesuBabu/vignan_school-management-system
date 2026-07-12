@@ -3,7 +3,7 @@ from models.db import users_collection
 from utils.auth import verify_password, hash_password
 from models.db import password_request_collection
 from models.db import students_collection
-from models.db import faculty_collection
+from models.db import faculty_collection,gallery_collection
 from config import Config
 
 auth = Blueprint('auth', __name__, template_folder='../templates')
@@ -277,6 +277,15 @@ def forgot_password():
 
         role=role
 
+    )
+@auth.route('/gallery')
+def public_gallery():
+
+    photos = list(gallery_collection.find())
+
+    return render_template(
+        'gallery.html',
+        photos=photos
     )
 
 # =========================

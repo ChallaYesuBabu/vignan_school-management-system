@@ -6,9 +6,13 @@ from utils.validators import is_valid_aadhaar
 from models.notice_model import add_notice
 from models.db import students_collection
 from models.db import faculty_collection,db
+from models.db import gallery_collection
 from flask import session
 from bson.objectid import ObjectId
 from models.db import password_request_collection
+from werkzeug.utils import secure_filename
+import os
+from datetime import datetime
 
 admin = Blueprint('admin', __name__, template_folder='../templates')
 # =========================
@@ -611,3 +615,65 @@ def reject_password(request_id):
     flash("Request rejected.")
 
     return redirect("/admin/password-requests")
+
+
+UPLOAD_FOLDER = "static/uploads/gallery"
+
+@admin.route('/admin/gallery', methods=['GET', 'POST'])
+def gallery():
+
+    if request.method == "POST":
+
+        title = request.form['title']
+        album = request.form['album']
+        description = request.form['description']
+
+        image = request.files['image']
+
+        filename = secure_filename(image.filename)
+
+        image.save(os.path.join(UPLOAD_FOLDER, filename))
+
+        gallery_collection.insert_one({
+
+            "title": title,
+            "album": album,
+            "description": description,
+            "image": filename,
+            "date": datetime.now().strftime("%d-%m-%Y")
+
+        })
+
+        flash("Photo Uploaded Successfully")
+
+        return redirect('/admin/gallery')
+
+    photos = list(gallery_collection.find())
+
+    return render_template(
+        "admin/gallery.html",
+        photos=photos
+    )
+
+@admin.route('/admin/delete-photo/<id>')
+def delete_photo(id):
+
+    photo = gallery_collection.find_one({"_id": ObjectId(id)})
+
+    if photo:
+
+        path = os.path.join(
+            "static/uploads/gallery",
+            photo['image']
+        )
+
+        if os.path.exists(path):
+            os.remove(path)
+
+        gallery_collection.delete_one({
+            "_id": ObjectId(id)
+        })
+
+    flash("Photo Deleted")
+
+    return redirect('/admin/gallery')

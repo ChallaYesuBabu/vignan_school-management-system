@@ -413,3 +413,38 @@ body{
     color:#ff5722;
     text-decoration:underline;
 }
+.admin-area{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+.gallery-btn{
+    background:#28a745;
+    color:white;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.gallery-btn:hover{
+    background:#218838;
+    transform:translateY(-2px);
+}
+
+.admin-btn{
+    background:#ff5722;
+    color:white;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.admin-btn:hover{
+    background:#e64a19;
+    transform:translateY(-2px);
+}
