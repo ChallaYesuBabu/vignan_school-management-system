@@ -4,6 +4,7 @@ from routes.auth_routes import auth
 from routes.admin_routes import admin
 from routes.faculty_routes import faculty
 from routes.student_routes import student
+from flask import send_from_directory
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -40,6 +41,11 @@ def sitemap():
 </urlset>
 """
     return Response(xml, mimetype="application/xml")
+
+
+@app.route("/robots.txt")
+def robots():
+    return send_from_directory("static", "robots.txt")
 
 # =========================
 # HOME ROUTE
