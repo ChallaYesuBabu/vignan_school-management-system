@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+.page-wrapper{
+    display:flex;
+    justify-content:center;
+    padding-top:30px;
+}
+
+.attendance-card{
+    width:850px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.1);
+}
+
+.title{
+    font-size:24px;
+    font-weight:600;
+    margin-bottom:20px;
+    color:#2c3e50;
+}
+
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.date-box input{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table th{
+    background:#2c3e50;
+    color:white;
+    padding:12px;
+    text-align:left;
+}
+
+.table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+.radio-group{
+    text-align:center;
+}
+
+.radio-group input{
+    transform:scale(1.2);
+}
+
+.btn-submit{
+    margin-top:20px;
+    width:100%;
+    padding:12px;
+    background:#27ae60;
+    border:none;
+    color:white;
+    border-radius:8px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.btn-submit:hover{
+    background:#219150;
+}
+
+</style>
+
+<div class="page-wrapper">
+
+    <div class="attendance-card">
+
+        <div class="top-bar">
+
+            <div class="title">
+                📅 Mark Attendance - Class {{ class_name }}
+            </div>
+
+            <div class="date-box">
+
+                <label>
+                    <b>Select Date:</b>
+                </label>
+
+                <input
+                    type="date"
+                    name="attendance_date"
+                    value="{{ today }}"
+                    form="attendanceForm"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+        <form method="POST" id="attendanceForm">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+                        <th>Student Name</th>
+                        <th style="text-align:center;">Present</th>
+                        <th style="text-align:center;">Absent</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for student in students %}
+
+                    <tr>
+
+                        <td>
+                            {{ student.name }}
+                        </td>
+
+                        <td class="radio-group">
+
+                            <input
+                                type="radio"
+                                name="{{ student.student_id }}"
+                                value="present"
+                                required
+                            >
+
+                        </td>
+
+                        <td class="radio-group">
+
+                            <input
+                                type="radio"
+                                name="{{ student.student_id }}"
+                                value="absent"
+                            >
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <button type="submit" class="btn-submit">
+                Save Attendance
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

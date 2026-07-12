@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login | Vignan E.M. School</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(135deg,#165ea8,#2f80c7,#3cb4d8);
+
+}
+
+/* Background Blur */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    background:#ffffff25;
+
+    border-radius:50%;
+
+    top:-150px;
+    left:-150px;
+
+    filter:blur(60px);
+
+}
+
+body::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+    height:450px;
+
+    background:#00ffd525;
+
+    border-radius:50%;
+
+    bottom:-120px;
+    right:-120px;
+
+    filter:blur(60px);
+
+}
+
+/* Card */
+
+.login-card{
+
+    width:420px;
+
+    background:rgba(255,255,255,.95);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:18px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+    z-index:5;
+
+}
+
+/* Logo */
+
+.logo{
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    padding:5px;
+
+    margin-bottom:15px;
+
+}
+
+/* School */
+
+.school-name{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#165ea8;
+
+}
+
+.school-sub{
+
+    color:#555;
+
+    margin-bottom:25px;
+
+}
+
+/* Title */
+
+h2{
+
+    margin-bottom:25px;
+
+    color:#222;
+
+}
+
+/* Input */
+
+input{
+
+    width:100%;
+
+    padding:13px;
+
+    margin-bottom:15px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+}
+
+input:focus{
+
+    border-color:#165ea8;
+
+    outline:none;
+
+}
+
+/* Button */
+
+button{
+
+    width:100%;
+
+    padding:13px;
+
+    background:#165ea8;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#0d4c8b;
+
+}
+
+/* Links */
+
+.links{
+
+    margin-top:18px;
+
+}
+
+.links a{
+
+    display:block;
+
+    text-decoration:none;
+
+    margin-top:10px;
+
+    color:#165ea8;
+
+    font-size:14px;
+
+}
+
+.links a:hover{
+
+    text-decoration:underline;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-card">
+
+    <img src="{{ url_for('static', filename='images/logo.jpeg') }}" class="logo">
+
+    <div class="school-name">
+        VIGNAN E.M. SCHOOL
+    </div>
+
+    <div class="school-sub">
+        Tiruvuru • School Management System
+    </div>
+
+    <h2>🔐 Admin Login</h2>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Admin Username"
+            required>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+    <div class="links">
+
+        <a href="/admin-forgot-password">
+            Forgot Password?
+        </a>
+
+        <a href="/login">
+            ← Back to Main Login
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

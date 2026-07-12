@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 style="margin-bottom:20px;">Create Student</h2>
+
+<form method="POST" action="/faculty/add-student" style="max-width:600px;">
+
+    Admission No:
+    <input type="text" name="admission_no" required><br><br>
+
+    Student ID:
+    <input type="text" name="student_id" required><br><br>
+
+    Roll Number:
+    <input type="text" name="roll_no"><br><br>
+
+    Full Name:
+    <input type="text" name="name" required><br><br>
+
+    Class:
+    <input type="text" name="class" required><br><br>
+
+    Section:
+    <input type="text" name="section"><br><br>
+
+    Date of Joining:
+    <input type="date" name="joining_date"><br><br>
+
+    Date of Birth:
+    <input type="date" name="dob"><br><br>
+
+    Gender:
+    <select name="gender">
+        <option>Male</option>
+        <option>Female</option>
+    </select><br><br>
+
+    Father Name:
+    <input type="text" name="father_name"><br><br>
+
+    Mother Name:
+    <input type="text" name="mother_name"><br><br>
+
+    Father Phone:
+    <input type="text" name="father_phone"><br><br>
+
+    Mother Phone:
+    <input type="text" name="mother_phone"><br><br>
+
+    Address:
+    <textarea name="address"></textarea><br><br>
+
+    Caste:
+    <select name="caste">
+        <option>OC</option>
+        <option>BC</option>
+        <option>SC</option>
+        <option>ST</option>
+    </select><br><br>
+
+    Aadhaar:
+    <input type="text" name="aadhaar"><br><br>
+
+    Blood Group:
+    <select name="blood_group">
+        <option>A+</option>
+        <option>B+</option>
+        <option>O+</option>
+        <option>AB+</option>
+    </select><br><br>
+
+    Previous School:
+    <input type="text" name="previous_school"><br><br>
+
+    Emergency Contact:
+    <input type="text" name="emergency_contact"><br><br>
+
+    <button type="submit" style="background:#27ae60;color:white;padding:10px;border:none;border-radius:5px;">
+        Create Student
+    </button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:36px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.quiz-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0px 4px 10px rgba(0,0,0,0.1);
+}
+
+.quiz-title{
+    font-size:24px;
+    font-weight:bold;
+    color:#2c3e50;
+    margin-bottom:15px;
+}
+
+.quiz-info{
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+.start-btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:12px 20px;
+    background:#27ae60;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+.start-btn:hover{
+    background:#219150;
+}
+
+.no-quiz{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    color:gray;
+    font-size:18px;
+}
+
+</style>
+
+<div class="page-title">
+    📝 My Quizzes
+</div>
+
+{% if quizzes %}
+
+    {% for quiz in quizzes %}
+
+    <div class="quiz-card">
+
+        <div class="quiz-title">
+            {{ quiz.quiz_title }}
+        </div>
+
+        <div class="quiz-info">
+            📅 Date: {{ quiz.quiz_date }}
+        </div>
+
+        <div class="quiz-info">
+            ⏰ Time:
+            {{ quiz.start_time }}
+            -
+            {{ quiz.end_time }}
+        </div>
+
+        <a href="/student/attempt-quiz/{{ quiz._id }}"
+           class="start-btn">
+
+            Attend Quiz
+
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="no-quiz">
+    No quizzes available 📄
+</div>
+
+{% endif %}
+
+{% endblock %}

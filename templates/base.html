@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Management System</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background: #2c3e50;
+            height: 100vh;
+            color: white;
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #ecf0f1;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: 0.3s;
+            border-radius: 8px;
+            margin: 5px 10px;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            background: #3498db;
+            transform: translateX(5px);
+        }
+
+        /* MAIN */
+        .main {
+            flex: 1;
+            background: #ecf0f1;
+        }
+
+        /* TOP BAR */
+        .topbar {
+            background: #34495e;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .topbar a {
+            color: yellow;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+
+        .logout {
+            color: red !important;
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <h2>🏫 SMS</h2>
+
+    {% if session.get('role') == 'admin' %}
+
+        <a href="/admin">🏠 Dashboard</a>
+        <a href="/admin/create-student">➕ Add Student</a>
+        <a href="/admin/create-faculty">➕ Add Faculty</a>
+        <a href="/admin/manage-students">📋 Students</a>
+        <a href="/admin/manage-faculty">👨‍🏫 Faculty</a>
+        <a href="/admin/add-notice">📢 Notice</a>
+        <a href="/admin/add-timetable">📅 Add Time Table</a>
+        <a href="/admin/password-requests">🔑 Password Requests</a>
+
+    {% elif session.get('role') == 'faculty' %}
+
+        <a href="/faculty">🏠 Dashboard</a>
+        <a href="/faculty/timetable">📅 My Time Table</a>
+        <a href="/faculty/add-student">➕ Add Student</a>
+        <a href="/faculty/manage-students">📋 Manage Students</a>
+        <a href="/faculty/add-diary">📘 Add Diary</a>
+        <a href="/faculty/view-diary">📖 View Diary</a>
+        <a href="/faculty/attendance">📅 Attendance</a>
+        <a href="/faculty/add-marks">📊 Add Marks</a>
+        <a href="/faculty/view-results">📈 View Results</a>
+        <a href="/faculty/create-quiz">📝 Quiz</a>
+
+    {% elif session.get('role') == 'student' %}
+
+        <a href="/student">🏠 Dashboard</a>
+        <a href="/student/profile">👤 Profile</a>
+        <a href="/student/timetable">📅 View Time Table</a>
+        <a href="/student/today-diary">📘 Diary</a>
+        <a href="/student/attendance">📅 Attendance</a>
+        <a href="/student/view-marks">📊 Marks</a>
+        <a href="/student/quiz">📝 Quiz</a>
+        <a href="/student/quiz-result">📄 Quiz Result</a>
+        <a href="/student/leaderboard">🏆 Leaderboard</a>
+        <a href="/student/notices">📢 Notices</a>
+        
+
+    {% endif %}
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <span>School Management System</span>
+
+        <div>
+            <a href="/change-password">Change Password</a>
+            <a href="/logout" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</div>
+
+</body>
+</html>

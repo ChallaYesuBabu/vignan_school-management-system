@@ -1,0 +1,685 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:40px;
+    font-weight:bold;
+    color:#2c3e50;
+    margin-bottom:25px;
+}
+
+/* CARD */
+
+.timetable-card{
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+    overflow-x:auto;
+}
+
+/* INFO */
+
+.info-box{
+    background:#eef6ff;
+    border-left:5px solid #3498db;
+    padding:18px;
+    border-radius:10px;
+    margin-bottom:25px;
+    line-height:30px;
+    color:#2c3e50;
+}
+
+/* TOP FORM */
+
+.form-top{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.form-group{
+    flex:1;
+    min-width:250px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#2c3e50;
+}
+
+.main-select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:15px;
+    background:white;
+}
+
+/* SECTION TITLE */
+
+.section-title{
+    font-size:28px;
+    font-weight:bold;
+    color:#2c3e50;
+    margin-top:25px;
+    margin-bottom:15px;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1600px;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:14px;
+    text-align:center;
+    font-size:15px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:center;
+}
+
+table tr:hover{
+    background:#f8fbff;
+}
+
+.class-name{
+    background:#f8f9fa;
+    font-weight:bold;
+    min-width:90px;
+    color:#2c3e50;
+}
+
+/* INPUTS */
+
+.subject-input{
+    width:100%;
+    padding:8px;
+    border:1px solid #3498db;
+    border-radius:8px;
+    background:#eef7ff;
+    font-size:13px;
+}
+
+.faculty-input{
+    width:100%;
+    padding:8px;
+    border:1px solid #27ae60;
+    border-radius:8px;
+    background:#effff4;
+    font-size:13px;
+}
+
+.subject-input:focus,
+.faculty-input:focus{
+    outline:none;
+    box-shadow:0px 0px 5px rgba(52,152,219,0.4);
+}
+
+.break-cell{
+    background:#fff3cd;
+    font-weight:bold;
+    color:#856404;
+    min-width:80px;
+}
+
+.lunch-cell{
+    background:#d4edda;
+    font-weight:bold;
+    color:#155724;
+    min-width:90px;
+}
+
+.sub-header{
+    background:#5d6d7e;
+    color:white;
+    font-size:13px;
+}
+
+/* BUTTONS */
+
+.button-group{
+    margin-top:30px;
+    display:flex;
+    gap:18px;
+}
+
+.save-btn,
+.update-btn{
+    background:#3498db;
+    color:white;
+    border:none;
+    padding:14px 28px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.save-btn:hover,
+.update-btn:hover{
+    background:#217dbb;
+    transform:translateY(-2px);
+}
+
+.edit-btn{
+    background:#f39c12;
+    color:white;
+    border:none;
+    padding:14px 28px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.edit-btn:hover{
+    background:#d68910;
+    transform:translateY(-2px);
+}
+
+</style>
+
+<div class="page-title">
+    📅 Add Time Table
+</div>
+
+<div class="timetable-card">
+
+<div class="info-box">
+
+    <b>Lower Section:</b>
+    PreKG to 4th Class
+
+    <br>
+
+    Same timetable from Monday to Saturday
+
+    <br><br>
+
+    <b>Higher Section:</b>
+    5th to 10th Class
+
+    <br>
+
+    Different timetable for every day
+
+    <br><br>
+
+    School Timing:
+    <b>9:00 AM to 4:20 PM</b>
+
+</div>
+
+{% set subjects = [
+    'Telugu',
+    'Hindi',
+    'English',
+    'Maths',
+    'EVS',
+    'GK',
+    'Computer',
+    'Science',
+    'Natural Science',
+    'Physical Science',
+    'Social'
+] %}
+
+<form method="POST">
+
+<input type="hidden"
+       name="section"
+       id="sectionInput"
+       value="lower">
+
+<!-- TOP -->
+
+<div class="form-top">
+
+    <div class="form-group">
+
+        <label>
+            Select Section
+        </label>
+
+        <select id="sectionSelect"
+                class="main-select">
+
+            <option value="lower">
+                Lower Section
+            </option>
+
+            <option value="higher">
+                Higher Section
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- DAY -->
+
+    <div class="form-group"
+         id="daySelectBox"
+         style="display:none;">
+
+        <label>
+            Select Day
+        </label>
+
+        <select name="day"
+                class="main-select">
+
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+
+        </select>
+
+    </div>
+
+</div>
+
+<!-- ================= LOWER ================= -->
+
+<div id="lowerSection">
+
+<div class="section-title">
+    🧒 Lower Section (PreKG - 4)
+</div>
+
+<table>
+
+<tr>
+
+    <th rowspan="2">Class</th>
+
+    {% for i in range(1,9) %}
+
+        <th colspan="2">
+            P{{ i }}
+        </th>
+
+        {% if i == 2 or i == 6 %}
+            <th class="break-cell"
+                rowspan="2">
+
+                Break
+
+            </th>
+        {% endif %}
+
+        {% if i == 4 %}
+            <th class="lunch-cell"
+                rowspan="2">
+
+                Lunch
+
+            </th>
+        {% endif %}
+
+    {% endfor %}
+
+</tr>
+
+<tr class="sub-header">
+
+    {% for i in range(1,9) %}
+
+        <th>Subject</th>
+        <th>Faculty</th>
+
+    {% endfor %}
+
+</tr>
+
+{% for c in lower_classes %}
+
+<tr>
+
+    <td class="class-name">
+        {{ c }}
+    </td>
+
+    {% for i in range(1,9) %}
+
+    <td>
+
+        <select
+            name="lower_{{ c }}_subject_{{ i }}"
+            class="subject-input"
+            {% if saved %}disabled{% endif %}
+        >
+
+            <option value="">
+                Select Subject
+            </option>
+
+            {% for s in subjects %}
+
+            <option value="{{ s }}">
+                {{ s }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </td>
+
+    <td>
+
+        <select
+            name="lower_{{ c }}_faculty_{{ i }}"
+            class="faculty-input"
+            {% if saved %}disabled{% endif %}
+        >
+
+            <option value="">
+                Select Faculty
+            </option>
+
+            {% for f in faculties %}
+
+            <option value="{{ f.name }}">
+                {{ f.name }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </td>
+
+    {% if i == 2 or i == 6 %}
+
+    <td class="break-cell">
+        Break
+    </td>
+
+    {% endif %}
+
+    {% if i == 4 %}
+
+    <td class="lunch-cell">
+        Lunch
+    </td>
+
+    {% endif %}
+
+    {% endfor %}
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<!-- ================= HIGHER ================= -->
+
+<div id="higherSection"
+     style="display:none;">
+
+<div class="section-title">
+    🎓 Higher Section (5 - 10)
+</div>
+
+<table>
+
+<tr>
+
+    <th rowspan="2">Class</th>
+
+    {% for i in range(1,9) %}
+
+        <th colspan="2">
+            P{{ i }}
+        </th>
+
+        {% if i == 2 or i == 6 %}
+            <th class="break-cell"
+                rowspan="2">
+
+                Break
+
+            </th>
+        {% endif %}
+
+        {% if i == 4 %}
+            <th class="lunch-cell"
+                rowspan="2">
+
+                Lunch
+
+            </th>
+        {% endif %}
+
+    {% endfor %}
+
+</tr>
+
+<tr class="sub-header">
+
+    {% for i in range(1,9) %}
+
+        <th>Subject</th>
+        <th>Faculty</th>
+
+    {% endfor %}
+
+</tr>
+
+{% for c in higher_classes %}
+
+<tr>
+
+    <td class="class-name">
+        {{ c }}
+    </td>
+
+    {% for i in range(1,9) %}
+
+    <td>
+
+        <select
+            name="higher_{{ c }}_subject_{{ i }}"
+            class="subject-input"
+            {% if saved %}disabled{% endif %}
+        >
+
+            <option value="">
+                Select Subject
+            </option>
+
+            {% for s in subjects %}
+
+            <option value="{{ s }}">
+                {{ s }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </td>
+
+    <td>
+
+        <select
+            name="higher_{{ c }}_faculty_{{ i }}"
+            class="faculty-input"
+            {% if saved %}disabled{% endif %}
+        >
+
+            <option value="">
+                Select Faculty
+            </option>
+
+            {% for f in faculties %}
+
+            <option value="{{ f.name }}">
+                {{ f.name }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </td>
+
+    {% if i == 2 or i == 6 %}
+
+    <td class="break-cell">
+        Break
+    </td>
+
+    {% endif %}
+
+    {% if i == 4 %}
+
+    <td class="lunch-cell">
+        Lunch
+    </td>
+
+    {% endif %}
+
+    {% endfor %}
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="button-group">
+
+{% if saved %}
+
+<button type="button"
+        class="edit-btn"
+        onclick="enableEdit()">
+
+    ✏️ Edit Time Table
+
+</button>
+
+<button type="submit"
+        class="update-btn">
+
+    💾 Update Changes
+
+</button>
+
+{% else %}
+
+<button type="submit"
+        class="save-btn">
+
+    💾 Save Time Table
+
+</button>
+
+{% endif %}
+
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+const sectionSelect =
+document.getElementById("sectionSelect");
+
+const lowerSection =
+document.getElementById("lowerSection");
+
+const higherSection =
+document.getElementById("higherSection");
+
+const daySelectBox =
+document.getElementById("daySelectBox");
+
+const sectionInput =
+document.getElementById("sectionInput");
+
+function updateSection(){
+
+    const value = sectionSelect.value;
+
+    sectionInput.value = value;
+
+    if(value === "lower"){
+
+        lowerSection.style.display = "block";
+
+        higherSection.style.display = "none";
+
+        daySelectBox.style.display = "none";
+
+    }
+
+    else{
+
+        lowerSection.style.display = "none";
+
+        higherSection.style.display = "block";
+
+        daySelectBox.style.display = "block";
+
+    }
+
+}
+
+sectionSelect.addEventListener(
+    "change",
+    updateSection
+);
+
+updateSection();
+
+function enableEdit(){
+
+    let selects = document.querySelectorAll(
+        ".subject-input, .faculty-input"
+    );
+
+    selects.forEach(function(select){
+
+        select.disabled = false;
+
+    });
+
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.dashboard-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    width: 220px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 8px 15px;
+    background: #3498db;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #2980b9;
+}
+</style>
+
+<div class="dashboard-title">👨‍🏫 Faculty Dashboard</div>
+
+<div class="cards">
+
+    <!-- ADD STUDENT -->
+    <div class="card">
+        <h3>➕ Add Student</h3>
+        <a href="/faculty/add-student" class="btn">Open</a>
+    </div>
+
+    <!-- MANAGE STUDENTS -->
+    <div class="card">
+        <h3>📋 Manage Students</h3>
+        <a href="/faculty/manage-students" class="btn">Open</a>
+    </div>
+
+    <!-- ADD DIARY -->
+    <div class="card">
+        <h3>📘 Add Diary</h3>
+        <a href="/faculty/add-diary" class="btn">Open</a>
+    </div>
+
+    <!-- VIEW DIARY -->
+    <div class="card">
+        <h3>📖 View Diary</h3>
+        <a href="/faculty/view-diary" class="btn">Open</a>
+    </div>
+
+    <!-- ATTENDANCE -->
+    <div class="card">
+        <h3>📅 Attendance</h3>
+        <a href="/faculty/attendance" class="btn">Open</a>
+    </div>
+
+    <!-- MARKS -->
+    <div class="card">
+        <h3>📊 Add Marks</h3>
+        <a href="/faculty/add-marks" class="btn">Open</a>
+    </div>
+
+    <!-- VIEW RESULTS -->
+    <div class="card">
+        <h3>📈 View Results</h3>
+        <a href="/faculty/view-results" class="btn">Open</a>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="card">
+        <h3>📝 Quiz</h3>
+        <a href="/faculty/create-quiz" class="btn">Open</a>
+    </div>
+
+</div>
+
+{% endblock %}

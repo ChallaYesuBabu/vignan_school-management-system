@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:38px;
+    font-weight:bold;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+
+.marks-card{
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.summary-box{
+    display:flex;
+    gap:25px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+
+.summary-card{
+    background:#f8f9fa;
+    padding:20px;
+    border-radius:12px;
+    min-width:200px;
+    border-left:5px solid #3498db;
+}
+
+.summary-card h3{
+    margin:0;
+    color:#2c3e50;
+}
+
+.summary-card p{
+    margin-top:10px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:14px;
+    text-align:center;
+}
+
+.subject{
+    font-weight:bold;
+    background:#f8f9fa;
+}
+
+.total-row{
+    background:#ecf5ff;
+    font-weight:bold;
+}
+
+</style>
+
+<div class="page-title">
+    📊 My Marks
+</div>
+
+{% set grand_total = namespace(value=0) %}
+
+<div class="marks-card">
+
+<table>
+
+    <tr>
+
+        <th>Exam</th>
+
+        {% for m in marks_data %}
+
+            <th>
+                {{ m.subject }}
+            </th>
+
+        {% endfor %}
+
+        <th>Total</th>
+
+    </tr>
+
+    {% set exams = ['FA1','FA2','FA3','FA4','SA1','SA2'] %}
+
+    {% for exam in exams %}
+
+    {% set row_total = namespace(value=0) %}
+
+    <tr>
+
+        <td class="subject">
+            {{ exam }}
+        </td>
+
+        {% for m in marks_data %}
+
+            {% set mark = m.marks.get(exam, '-') %}
+
+            <td>
+
+                {{ mark }}
+
+            </td>
+
+            {% if mark != '-' %}
+                {% set row_total.value = row_total.value + mark %}
+            {% endif %}
+
+        {% endfor %}
+
+        <td>
+            <b>{{ row_total.value }}</b>
+        </td>
+
+    </tr>
+
+    {% set grand_total.value = grand_total.value + row_total.value %}
+
+    {% endfor %}
+
+    <!-- GRAND TOTAL -->
+
+    <tr class="total-row">
+
+        <td colspan="{{ marks_data|length + 1 }}">
+
+            Grand Total
+
+        </td>
+
+        <td>
+
+            {{ grand_total.value }}
+
+        </td>
+
+    </tr>
+
+</table>
+<!-- ========================= -->
+<!-- PERCENTAGE -->
+<!-- ========================= -->
+
+{% set total_max = namespace(value=0) %}
+
+{% for m in marks_data %}
+
+    {% if student_class|int <= 5 %}
+
+        {% if m.marks.get('FA1') is not none %}
+            {% set total_max.value = total_max.value + 25 %}
+        {% endif %}
+
+        {% if m.marks.get('FA2') is not none %}
+            {% set total_max.value = total_max.value + 25 %}
+        {% endif %}
+
+        {% if m.marks.get('FA3') is not none %}
+            {% set total_max.value = total_max.value + 25 %}
+        {% endif %}
+
+        {% if m.marks.get('FA4') is not none %}
+            {% set total_max.value = total_max.value + 25 %}
+        {% endif %}
+
+        {% if m.marks.get('SA1') is not none %}
+            {% set total_max.value = total_max.value + 50 %}
+        {% endif %}
+
+        {% if m.marks.get('SA2') is not none %}
+            {% set total_max.value = total_max.value + 50 %}
+        {% endif %}
+
+    {% else %}
+
+        {% if m.marks.get('FA1') is not none %}
+            {% set total_max.value = total_max.value + 35 %}
+        {% endif %}
+
+        {% if m.marks.get('FA2') is not none %}
+            {% set total_max.value = total_max.value + 35 %}
+        {% endif %}
+
+        {% if m.marks.get('FA3') is not none %}
+            {% set total_max.value = total_max.value + 35 %}
+        {% endif %}
+
+        {% if m.marks.get('FA4') is not none %}
+            {% set total_max.value = total_max.value + 35 %}
+        {% endif %}
+
+        {% if m.marks.get('SA1') is not none %}
+            {% set total_max.value = total_max.value + 100 %}
+        {% endif %}
+
+        {% if m.marks.get('SA2') is not none %}
+            {% set total_max.value = total_max.value + 100 %}
+        {% endif %}
+
+    {% endif %}
+
+{% endfor %}
+
+{% if total_max.value > 0 %}
+
+    {% set percentage =
+        (grand_total.value / total_max.value) * 100
+    %}
+
+{% else %}
+
+    {% set percentage = 0 %}
+
+{% endif %}
+
+<div class="summary-box">
+
+    <div class="summary-card">
+
+        <h3>Total Marks</h3>
+
+        <p>
+            {{ grand_total.value }}
+        </p>
+
+    </div>
+
+    <div class="summary-card">
+
+        <h3>Percentage</h3>
+
+        <p>
+            {{ percentage|round(2) }}%
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

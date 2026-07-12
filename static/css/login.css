@@ -1,0 +1,326 @@
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#333;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.top-header{
+    height:170px;
+    background:#165ea8;
+    display:grid;
+    grid-template-columns:180px 1fr 220px;
+    align-items:center;
+    padding:0 30px;
+}
+
+.logo-area img{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:#fff;
+    padding:8px;
+    object-fit:cover;
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+
+.school-details{
+    text-align:center;
+    color:#fff;
+}
+
+.school-details h1{
+    font-size:52px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.school-details h2{
+    color:#ffd54f;
+    font-size:26px;
+    margin-bottom:6px;
+}
+
+.school-details h3{
+    font-size:18px;
+    letter-spacing:3px;
+    margin-bottom:8px;
+}
+
+.school-details p{
+    font-size:17px;
+    color:#eaf4ff;
+}
+
+.admin-area{
+    display:flex;
+    justify-content:flex-end;
+}
+
+.admin-btn{
+    background:#ff5722;
+    color:#fff;
+    text-decoration:none;
+    padding:16px 34px;
+    font-size:18px;
+    border-radius:10px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.admin-btn:hover{
+    background:#e64a19;
+}
+
+/* =========================
+   BANNER
+========================= */
+
+.banner{
+    width:100%;
+    height:700px;
+    position:relative;
+    overflow:hidden;
+}
+
+.banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+/* =========================
+   LOGIN SECTION
+========================= */
+
+.login-section{
+    position:absolute;
+    top:60%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    display:flex;
+    gap:40px;
+    z-index:100;
+}
+
+.login-card{
+    width:350px;
+
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border-radius:20px;
+    padding:35px;
+
+    border:1px solid rgba(255,255,255,.35);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.25),
+        inset 0 1px 1px rgba(255,255,255,.3);
+
+    transition:.35s ease;
+}
+
+.login-card:hover{
+    transform:translateY(-10px);
+    box-shadow:
+        0 25px 45px rgba(0,0,0,.35),
+        inset 0 1px 1px rgba(255,255,255,.3);
+}
+
+/* Faculty Card */
+
+.faculty-card{
+    border-top:6px solid #27ae60;
+}
+
+/* Student Card */
+
+.student-card{
+    border-top:6px solid #2980b9;
+}
+
+/* Heading */
+
+.login-card h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#111;
+    font-size:30px;
+    font-weight:700;
+}
+
+/* Input */
+
+.login-card input{
+    width:100%;
+    padding:15px 18px;
+    margin:12px 0;
+
+    border:1px solid rgba(0,0,0,.15);
+    border-radius:10px;
+
+    background:rgba(255,255,255,.95);
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.login-card input:focus{
+    outline:none;
+    border-color:#165ea8;
+    box-shadow:0 0 10px rgba(22,94,168,.25);
+}
+
+/* Button */
+
+.login-card button{
+    width:100%;
+    margin-top:12px;
+    padding:15px;
+
+    border:none;
+    border-radius:10px;
+
+    background:linear-gradient(135deg,#165ea8,#0b4f96);
+
+    color:#fff;
+    font-size:17px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.login-card button:hover{
+    background:linear-gradient(135deg,#0b4f96,#073b70);
+    transform:scale(1.02);
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+/* ================= CONTACT ================= */
+
+.contact{
+    background:#165ea8;
+    color:#fff;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    text-align:center;
+
+    padding:30px 60px;
+}
+
+.contact-box{
+    position:relative;
+}
+
+.contact-box:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    right:0;
+    top:15px;
+
+    width:1px;
+    height:70px;
+
+    background:rgba(255,255,255,.25);
+}
+
+.contact-box i{
+    font-size:30px;
+    color:#ffd54f;
+    margin-bottom:10px;
+}
+
+.contact-box h3{
+    margin:8px 0;
+    font-size:19px;
+}
+
+.contact-box p{
+    font-size:15px;
+    opacity:.95;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    background:#0b437b;
+    color:#fff;
+
+    text-align:center;
+
+    padding:18px;
+
+    line-height:1.8;
+
+    font-size:15px;
+}
+
+.footer strong{
+    color:#ffd54f;
+}
+
+.developer{
+    color:#00e5ff;
+    font-weight:700;
+}
+
+.footer p{
+    margin:3px 0;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+.contact{
+    grid-template-columns:1fr;
+    gap:30px;
+}
+
+.contact-box::after{
+    display:none;
+}
+
+}
+
+.forgot-password{
+    margin-top:15px;
+    text-align:right;
+}
+
+.forgot-password a{
+    text-decoration:none;
+    color:black;
+    font-size:18px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.forgot-password a:hover{
+    color:#ff5722;
+    text-decoration:underline;
+}

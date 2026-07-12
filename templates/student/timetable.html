@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:52px;
+    font-weight:800;
+    color:#2c3e50;
+    margin-bottom:30px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.info-card{
+    background:white;
+    padding:22px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
+    border-left:5px solid #3498db;
+}
+
+.info-label{
+    color:#7f8c8d;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.info-value{
+    font-size:22px;
+    font-weight:700;
+    color:#2c3e50;
+}
+
+.timetable-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0px 4px 15px rgba(0,0,0,0.08);
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1200px;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:14px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:14px;
+    text-align:center;
+    font-size:14px;
+}
+
+.day-cell{
+    background:#f8f9fa;
+    font-weight:700;
+    width:120px;
+}
+
+.period-box{
+    background:#eef5ff;
+    border-left:4px solid #3498db;
+    border-radius:10px;
+    padding:10px;
+}
+
+.subject{
+    font-weight:700;
+    color:#2c3e50;
+    margin-bottom:4px;
+}
+
+.faculty{
+    font-size:13px;
+    color:#7f8c8d;
+}
+
+.break-cell{
+    background:#fff3cd;
+    font-weight:bold;
+    color:#856404;
+}
+
+.lunch-cell{
+    background:#d4edda;
+    font-weight:bold;
+    color:#155724;
+}
+
+.empty{
+    color:#bbb;
+}
+
+</style>
+
+<div class="page-title">
+    📚 Student Timetable
+</div>
+
+<div class="info-grid">
+
+    <div class="info-card">
+        <div class="info-label">
+            Student Name
+        </div>
+
+        <div class="info-value">
+            {{ student.name }}
+        </div>
+    </div>
+
+    <div class="info-card">
+        <div class="info-label">
+            Class
+        </div>
+
+        <div class="info-value">
+            {{ student.class }}
+        </div>
+    </div>
+
+    <div class="info-card">
+        <div class="info-label">
+            Section
+        </div>
+
+        <div class="info-value">
+
+            {% if section == "lower" %}
+                Lower Section
+            {% else %}
+                Higher Section
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+<div class="timetable-card">
+
+<table>
+
+    <tr>
+
+        <th>Day</th>
+
+        <th>
+            P1
+            <br>
+            9:00 - 9:45
+        </th>
+
+        <th>
+            P2
+            <br>
+            9:45 - 10:30
+        </th>
+
+        <th class="break-cell">
+            Break
+        </th>
+
+        <th>
+            P3
+            <br>
+            10:40 - 11:25
+        </th>
+
+        <th>
+            P4
+            <br>
+            11:25 - 12:10
+        </th>
+
+        <th class="lunch-cell">
+            Lunch
+        </th>
+
+        <th>
+            P5
+            <br>
+            1:10 - 1:55
+        </th>
+
+        <th>
+            P6
+            <br>
+            1:55 - 2:40
+        </th>
+
+        <th class="break-cell">
+            Break
+        </th>
+
+        <th>
+            P7
+            <br>
+            2:50 - 3:35
+        </th>
+
+        <th>
+            P8
+            <br>
+            3:35 - 4:20
+        </th>
+
+    </tr>
+
+    {% for row in timetable %}
+
+    <tr>
+
+        <td class="day-cell">
+            {{ row.day }}
+        </td>
+
+        {% for i in range(1,9) %}
+
+            {% set p = row.periods['P' ~ i] %}
+
+            <td>
+
+                {% if p.subject %}
+
+                <div class="period-box">
+
+                    <div class="subject">
+                        {{ p.subject }}
+                    </div>
+
+                    <div class="faculty">
+                        {{ p.faculty }}
+                    </div>
+
+                </div>
+
+                {% else %}
+
+                <div class="empty">
+                    -
+                </div>
+
+                {% endif %}
+
+            </td>
+
+            {% if i == 2 or i == 6 %}
+                <td class="break-cell">
+                    Break
+                </td>
+            {% endif %}
+
+            {% if i == 4 %}
+                <td class="lunch-cell">
+                    Lunch
+                </td>
+            {% endif %}
+
+        {% endfor %}
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

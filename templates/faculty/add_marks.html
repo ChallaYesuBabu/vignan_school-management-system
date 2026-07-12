@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:36px;
+    font-weight:bold;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+
+.marks-card{
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.top-controls{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+}
+
+select{
+    padding:10px 15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:15px;
+    outline:none;
+}
+
+.info-box{
+    background:#ecf5ff;
+    border-left:5px solid #3498db;
+    padding:15px;
+    margin-bottom:25px;
+    border-radius:8px;
+    color:#2c3e50;
+    font-size:15px;
+}
+
+.limit-box{
+    margin-top:10px;
+    color:#555;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:14px;
+    text-align:center;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+.student-name{
+    text-align:left;
+    font-weight:bold;
+    background:#f8f9fa;
+}
+
+input[type="number"]{
+    width:80px;
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    text-align:center;
+    outline:none;
+}
+
+.save-btn{
+    margin-top:25px;
+    background:#27ae60;
+    color:white;
+    border:none;
+    padding:14px 25px;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.save-btn:hover{
+    background:#1e8449;
+}
+
+.no-students{
+    text-align:center;
+    padding:30px;
+    color:gray;
+    font-size:20px;
+}
+
+</style>
+
+<div class="page-title">
+    📊 Add Marks
+</div>
+
+<div class="marks-card">
+
+<form method="POST">
+
+    <!-- TOP CONTROLS -->
+    <div class="top-controls">
+
+        <!-- CLASS -->
+        <div>
+
+            <label>
+                <b>Select Class</b>
+            </label>
+            <br><br>
+
+            <select
+                name="class_name"
+                onchange="window.location.href='?class_name='+this.value"
+            >
+
+                {% for c in range(1,11) %}
+
+                    <option
+                        value="{{ c }}"
+                        {% if class_name == c|string %}selected{% endif %}
+                    >
+                        Class {{ c }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <!-- EXAM -->
+        <div>
+
+            <label>
+                <b>Select Exam</b>
+            </label>
+            <br><br>
+
+            <select name="exam" required>
+
+                <option value="">Choose Exam</option>
+
+                <option>FA1</option>
+                <option>FA2</option>
+                <option>FA3</option>
+                <option>FA4</option>
+
+                <option>SA1</option>
+                <option>SA2</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <!-- INFO -->
+    <div class="info-box">
+
+        <b>Faculty Role:</b>
+        {{ faculty_role }}
+
+        <br><br>
+
+        <b>Allowed Subject(s):</b>
+
+        {% for subject in subjects %}
+            {{ subject }}
+            {% if not loop.last %}, {% endif %}
+        {% endfor %}
+
+        <div class="limit-box">
+
+            FA Max:
+            <b>{{ fa_max }}</b>
+
+            &nbsp;&nbsp;&nbsp;
+
+            SA Max:
+            <b>{{ sa_max }}</b>
+
+        </div>
+
+    </div>
+
+    {% if students %}
+
+    <table>
+
+        <tr>
+
+            <th>
+                Student
+            </th>
+
+            {% for subject in subjects %}
+
+            <th>
+                {{ subject }}
+            </th>
+
+            {% endfor %}
+
+        </tr>
+
+        {% for student in students %}
+
+        <tr>
+
+            <td class="student-name">
+
+                {{ student.name }}
+                <br>
+
+                <small>
+                    {{ student.student_id }}
+                </small>
+
+            </td>
+
+            {% for subject in subjects %}
+
+            <td>
+
+                <input
+                    type="number"
+                    name="{{ student.student_id }}_{{ subject }}"
+                    placeholder="0"
+                    min="0"
+                >
+
+            </td>
+
+            {% endfor %}
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <button
+        type="submit"
+        class="save-btn"
+    >
+        Save Marks
+    </button>
+
+    {% else %}
+
+    <div class="no-students">
+        No students found in this class ❌
+    </div>
+
+    {% endif %}
+
+</form>
+
+</div>
+
+{% endblock %}

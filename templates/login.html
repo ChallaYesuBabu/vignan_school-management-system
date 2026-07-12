@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vignan E.M. School | School Management System</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="top-header">
+
+    <!-- Logo -->
+    <div class="logo-area">
+        <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Logo">
+    </div>
+
+    <!-- School Details -->
+    <div class="school-details">
+
+        <h1>VIGNAN E.M. SCHOOL</h1>
+
+        <h2>TIRUVURU</h2>
+
+        <h3>LEARN • GROW • LEAD</h3>
+
+        <p>Nurturing Minds, Shaping Futures</p>
+
+    </div>
+
+    <!-- Admin Login -->
+    <div class="admin-area">
+        <a href="/admin-login" class="admin-btn">
+            👨‍💼 Admin Login
+        </a>
+    </div>
+
+</header>
+
+
+<!-- ================= BANNER ================= -->
+
+<section class="banner">
+
+    <img src="{{ url_for('static', filename='images/banner.jpeg') }}"
+         alt="School Banner">
+
+    <!-- Login Cards on Banner -->
+
+    <div class="login-section">
+
+        <!-- Faculty Login -->
+
+        <div class="login-card faculty-card">
+
+            <h2>👨‍🏫 Faculty Login</h2>
+
+            <form method="POST" action="/login">
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Faculty Username"
+                    required>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+                <input
+                    type="hidden"
+                    name="role"
+                    value="faculty">
+
+                <button type="submit">
+                    Login
+                </button>
+                <div class="forgot-password">
+                    <a href="/forgot-password?role=faculty">
+                        Forgot Password?
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- Student Login -->
+
+        <div class="login-card student-card">
+
+            <h2>🎓 Student Login</h2>
+
+            <form method="POST" action="/login">
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Student ID"
+                    required>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+                <input
+                    type="hidden"
+                    name="role"
+                    value="student">
+
+                <button type="submit">
+                    Login
+                </button>
+
+                <div class="forgot-password">
+                    <a href="/forgot-password?role=student">
+                        Forgot Password?
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Principal / Contact / Footer -->
+
+<section class="bottom-info">
+
+</section>
+
+<!-- ================= CONTACT ================= -->
+
+<section class="contact">
+
+    <div class="contact-box">
+        <i class="fas fa-phone-alt"></i>
+        <h3>Phone</h3>
+        <p>+91 9876543210</p>
+    </div>
+
+    <div class="contact-box">
+        <i class="fas fa-envelope"></i>
+        <h3>Email</h3>
+        <p>info@vignanemschool.edu.in</p>
+    </div>
+
+    <div class="contact-box">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Address</h3>
+        <p>Tiruvuru, Andhra Pradesh</p>
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>© 2026 <strong>Vignan E.M. School</strong></p>
+
+    <p>School Management System</p>
+
+    <p>
+        Designed & Developed by
+        <span class="developer">Yesubabu Challa</span>
+    </p>
+
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+</body>
+</html>

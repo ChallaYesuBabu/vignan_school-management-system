@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:36px;
+    font-weight:bold;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+
+.faculty-card{
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+    max-width:750px;
+}
+
+.form-group{
+    margin-bottom:22px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#2c3e50;
+    font-size:15px;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px 15px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+    transition:0.3s;
+    box-sizing:border-box;
+}
+
+input:focus,
+select:focus{
+    border-color:#3498db;
+    box-shadow:0px 0px 5px rgba(52,152,219,0.3);
+}
+
+.submit-btn{
+    background:#27ae60;
+    color:white;
+    border:none;
+    padding:14px 24px;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.submit-btn:hover{
+    background:#1f8a4d;
+}
+
+.info-box{
+    background:#eef6ff;
+    border-left:5px solid #3498db;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:25px;
+    color:#2c3e50;
+    font-size:14px;
+}
+
+</style>
+
+<div class="page-title">
+    👨‍🏫 Add Faculty
+</div>
+
+<div class="faculty-card">
+
+    <div class="info-box">
+
+        <b>Subject Teacher:</b>
+        Can manage only assigned subject.
+
+        <br><br>
+
+        <b>Class Teacher:</b>
+        Can manage all subjects for assigned class.
+
+    </div>
+
+<form method="POST">
+
+    <!-- FACULTY ID -->
+    <div class="form-group">
+
+        <label>
+            Faculty ID
+        </label>
+
+        <input
+            type="text"
+            name="faculty_id"
+            placeholder="Enter Faculty ID"
+            required
+        >
+
+    </div>
+
+    <!-- NAME -->
+    <div class="form-group">
+
+        <label>
+            Faculty Name
+        </label>
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Enter Faculty Name"
+            required
+        >
+
+    </div>
+
+    <!-- SUBJECT -->
+    <div class="form-group">
+
+        <label>
+            Subject
+        </label>
+
+        <select name="subject" required>
+
+            <option value="">
+                Select Subject
+            </option>
+
+            <option>Telugu</option>
+            <option>Hindi</option>
+            <option>English</option>
+            <option>Maths</option>
+            <option>EVS</option>
+            <option>GK</option>
+            <option>Computer</option>
+            <option>Science</option>
+            <option>Natural Science</option>
+            <option>Physical Science</option>
+            <option>Social</option>
+
+        </select>
+
+    </div>
+
+    <!-- CLASS -->
+    <div class="form-group">
+
+        <label>
+            Assigned Class
+        </label>
+
+        <select name="class" required>
+
+            <option value="">
+                Select Class
+            </option>
+
+            {% for i in range(1,11) %}
+
+                <option value="{{ i }}">
+                    Class {{ i }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </div>
+
+    <!-- ROLE -->
+    <div class="form-group">
+
+        <label>
+            Faculty Role
+        </label>
+
+        <select name="role" required>
+
+            <option value="subject_teacher">
+                Subject Teacher
+            </option>
+
+            <option value="class_teacher">
+                Class Teacher
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- PHONE -->
+    <div class="form-group">
+
+        <label>
+            Phone Number
+        </label>
+
+        <input
+            type="text"
+            name="phone"
+            placeholder="Enter Phone Number"
+        >
+
+    </div>
+
+    <!-- SUBMIT -->
+    <button
+        type="submit"
+        class="submit-btn"
+    >
+        Create Faculty
+    </button>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:38px;
+    font-weight:bold;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+
+.leaderboard-box{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:16px;
+}
+
+td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+    font-size:15px;
+}
+
+tr:hover{
+    background:#f8f9fa;
+}
+
+.rank-1{
+    color:#f1c40f;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.rank-2{
+    color:#95a5a6;
+    font-weight:bold;
+}
+
+.rank-3{
+    color:#cd7f32;
+    font-weight:bold;
+}
+
+.topper-row{
+    background:#fff8dc;
+}
+
+.no-data{
+    text-align:center;
+    padding:40px;
+    color:gray;
+    font-size:20px;
+}
+
+</style>
+
+<div class="page-title">
+    🏆 Leaderboard
+</div>
+
+<div class="leaderboard-box">
+
+{% if leaderboard %}
+
+<table>
+
+    <tr>
+
+        <th>Rank</th>
+        <th>Student Name</th>
+        <th>Class</th>
+        <th>Total Marks</th>
+        <th>Percentage</th>
+
+    </tr>
+
+    {% for s in leaderboard %}
+
+    <tr
+        {% if loop.index == 1 %}
+            class="topper-row"
+        {% endif %}
+    >
+
+        <td>
+
+            {% if loop.index == 1 %}
+
+                <span class="rank-1">
+                    🥇 1
+                </span>
+
+            {% elif loop.index == 2 %}
+
+                <span class="rank-2">
+                    🥈 2
+                </span>
+
+            {% elif loop.index == 3 %}
+
+                <span class="rank-3">
+                    🥉 3
+                </span>
+
+            {% else %}
+
+                {{ loop.index }}
+
+            {% endif %}
+
+        </td>
+
+        <td>
+            {{ s.student_name }}
+        </td>
+
+        <td>
+            {{ s.class }}
+        </td>
+
+        <td>
+            <b>{{ s.total_marks }}</b>
+        </td>
+
+        <td>
+            <b>{{ s.percentage }}%</b>
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<div class="no-data">
+    No leaderboard data available 📄
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

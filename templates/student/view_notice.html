@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:38px;
+    font-weight:bold;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+
+.notice-container{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.notice-card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.notice-card:hover{
+    transform:translateY(-3px);
+}
+
+.notice-title{
+    font-size:24px;
+    font-weight:bold;
+    color:#2c3e50;
+    margin-bottom:15px;
+}
+
+.notice-content{
+    font-size:17px;
+    line-height:1.7;
+    color:#555;
+    margin-bottom:20px;
+}
+
+.notice-date{
+    color:gray;
+    font-size:14px;
+    text-align:right;
+}
+
+.no-notice{
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    color:gray;
+    font-size:20px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+</style>
+
+<div class="page-title">
+    📢 Notice Board
+</div>
+
+{% if notices %}
+
+<div class="notice-container">
+
+    {% for n in notices %}
+
+    <div class="notice-card">
+
+        <div class="notice-title">
+            {{ n.title }}
+        </div>
+
+        <div class="notice-content">
+            {{ n.content }}
+        </div>
+
+        <div class="notice-date">
+            📅 {{ n.created_at }}
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="no-notice">
+    No notices available 📄
+</div>
+
+{% endif %}
+
+{% endblock %}

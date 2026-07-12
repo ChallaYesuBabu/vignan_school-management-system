@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:38px;
+    font-weight:bold;
+    color:#2c3e50;
+    margin-bottom:25px;
+}
+
+.result-card{
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:14px;
+    text-align:center;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:14px;
+    text-align:center;
+}
+
+.quiz-title{
+    font-weight:bold;
+}
+
+.score{
+    color:#27ae60;
+    font-weight:bold;
+    font-size:18px;
+}
+
+</style>
+
+<div class="page-title">
+    📝 Quiz Results
+</div>
+
+<div class="result-card">
+
+<table>
+
+    <tr>
+
+        <th>Quiz</th>
+
+        <th>Marks</th>
+
+    </tr>
+
+    {% for q in results %}
+
+    <tr>
+
+        <td class="quiz-title">
+
+            {{ q.quiz_title }}
+
+        </td>
+
+        <td class="score">
+
+            {{ q.score }}/{{ q.total }}
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

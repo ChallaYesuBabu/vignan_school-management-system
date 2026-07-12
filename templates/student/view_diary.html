@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:38px;
+    font-weight:bold;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+
+.date-selector{
+    margin-bottom:25px;
+}
+
+.date-selector form{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.date-selector label{
+    font-size:16px;
+    font-weight:bold;
+    color:#2c3e50;
+}
+
+.date-selector select{
+    padding:10px 15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:15px;
+    outline:none;
+    background:white;
+}
+
+.diary-sheet{
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.diary-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    padding-bottom:15px;
+    border-bottom:2px solid #eee;
+}
+
+.diary-header div{
+    font-size:18px;
+    font-weight:bold;
+    color:#2c3e50;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:16px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:18px;
+    font-size:16px;
+    vertical-align:top;
+}
+
+.subject{
+    width:220px;
+    font-weight:bold;
+    background:#f8f9fa;
+}
+
+.homework{
+    line-height:1.7;
+}
+
+.empty{
+    color:gray;
+    font-style:italic;
+}
+
+.no-diary{
+    background:white;
+    border-radius:18px;
+    padding:40px;
+    text-align:center;
+    font-size:22px;
+    color:gray;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+</style>
+
+<div class="page-title">
+    📘 Daily Diary
+</div>
+
+<!-- DATE SELECTOR -->
+<div class="date-selector">
+
+    <form method="GET">
+
+        <label>
+            Select Date:
+        </label>
+
+        <select
+            name="date"
+            onchange="this.form.submit()"
+        >
+
+            {% for d in dates %}
+
+                <option
+                    value="{{ d }}"
+                    {% if d == selected_date %}selected{% endif %}
+                >
+                    {{ d }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </form>
+
+</div>
+
+{% if diary and diary.get('homework') %}
+
+<div class="diary-sheet">
+
+    <div class="diary-header">
+
+        <div>
+            Class: {{ diary.class }}
+        </div>
+
+        <div>
+            📅 {{ diary.date }}
+        </div>
+
+    </div>
+
+    <table>
+
+        <tr>
+            <th>Subject</th>
+            <th>Homework</th>
+        </tr>
+
+        {% for subject, work in diary['homework'].items() %}
+
+        <tr>
+
+            <td class="subject">
+                {{ subject }}
+            </td>
+
+            <td class="homework">
+
+                {% if work %}
+
+                    {{ work }}
+
+                {% else %}
+
+                    <span class="empty">
+                        No homework assigned
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="no-diary">
+    No diary available for selected date 📄
+</div>
+
+{% endif %}
+
+{% endblock %}

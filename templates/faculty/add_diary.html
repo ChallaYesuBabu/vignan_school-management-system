@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:38px;
+    font-weight:bold;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+
+.diary-card{
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.diary-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    font-size:18px;
+    font-weight:bold;
+    border-bottom:2px solid #eee;
+    padding-bottom:15px;
+}
+
+.class-selector{
+    margin-bottom:25px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.class-selector label{
+    font-weight:bold;
+    font-size:16px;
+}
+
+.class-selector select,
+.date-picker{
+    padding:10px 15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:15px;
+    outline:none;
+    background:white;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:16px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:15px;
+    vertical-align:top;
+}
+
+.subject-name{
+    font-weight:bold;
+    width:220px;
+    background:#f8f9fa;
+    font-size:16px;
+}
+
+textarea{
+    width:100%;
+    min-height:90px;
+    border:none;
+    resize:vertical;
+    outline:none;
+    font-size:15px;
+    background:transparent;
+    font-family:'Segoe UI', Arial;
+    line-height:1.6;
+}
+
+.save-btn{
+    margin-top:25px;
+    background:#3498db;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.save-btn:hover{
+    background:#2980b9;
+}
+
+.readonly{
+    background:#f4f4f4;
+    color:#555;
+}
+
+.no-data{
+    text-align:center;
+    padding:20px;
+    color:gray;
+    font-size:18px;
+}
+
+.info-text{
+    color:#7f8c8d;
+    margin-bottom:20px;
+    font-size:15px;
+}
+
+</style>
+
+<div class="page-title">
+    📘 Daily Diary
+</div>
+
+<div class="diary-card">
+
+<form method="POST">
+
+    <!-- HEADER -->
+    <div class="diary-header">
+
+        <div>
+            Class: {{ class_name }}
+        </div>
+
+        <div>
+
+            <input
+                type="date"
+                name="diary_date"
+                value="{{ today }}"
+                class="date-picker"
+                onchange="this.form.submit()"
+            >
+
+        </div>
+
+    </div>
+
+    <!-- CLASS SELECTOR -->
+    <div class="class-selector">
+
+        <label>
+            Select Class:
+        </label>
+
+        <select
+            name="class_name"
+            onchange="this.form.submit()"
+        >
+
+            {% for c in range(1,11) %}
+
+                <option
+                    value="{{ c }}"
+                    {% if class_name == c|string %}selected{% endif %}
+                >
+                    Class {{ c }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </div>
+
+    <div class="info-text">
+
+        You can update only your assigned subject:
+        <b>{{ faculty_subject }}</b>
+
+    </div>
+
+<table>
+
+    <tr>
+        <th>Subject</th>
+        <th>Homework</th>
+    </tr>
+
+    {% if diary and diary.get('homework') %}
+
+        {% for subject, work in diary['homework'].items() %}
+
+        <tr>
+
+            <td class="subject-name">
+                {{ subject }}
+            </td>
+
+            <td>
+
+                {% if subject.lower() == faculty_subject %}
+
+                    <textarea
+                        name="content"
+                        placeholder="Enter homework for {{ subject }}..."
+                    >{{ work }}</textarea>
+
+                {% else %}
+
+                    <textarea
+                        class="readonly"
+                        readonly
+                    >{{ work }}</textarea>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <tr>
+            <td colspan="2" class="no-data">
+                No diary data available
+            </td>
+        </tr>
+
+    {% endif %}
+
+</table>
+
+<button type="submit" class="save-btn">
+    Save Homework
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

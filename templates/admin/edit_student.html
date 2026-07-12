@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:36px;
+    font-weight:bold;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+
+.edit-card{
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+label{
+    font-weight:bold;
+    margin-bottom:8px;
+    color:#2c3e50;
+}
+
+input,
+select,
+textarea{
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+textarea{
+    resize:none;
+    height:100px;
+}
+
+.full-width{
+    grid-column:1 / -1;
+}
+
+.update-btn{
+    background:#3498db;
+    color:white;
+    border:none;
+    padding:14px 30px;
+    border-radius:10px;
+    font-size:16px;
+    margin-top:25px;
+}
+
+.update-btn:hover{
+    background:#2980b9;
+}
+
+</style>
+
+<div class="page-title">
+    ✏ Edit Student
+</div>
+
+<div class="edit-card">
+
+<form method="POST">
+
+<div class="form-grid">
+
+    <div class="form-group">
+        <label>Admission No</label>
+        <input type="text"
+               name="admission_no"
+               value="{{ student.admission_no }}"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label>Student ID</label>
+        <input type="text"
+               name="student_id"
+               value="{{ student.student_id }}"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label>Roll Number</label>
+        <input type="text"
+               name="roll_no"
+               value="{{ student.roll_no }}"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text"
+               name="name"
+               value="{{ student.name }}"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label>Class</label>
+        <input type="text"
+               name="class"
+               value="{{ student.class }}"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label>Section</label>
+        <input type="text"
+               name="section"
+               value="{{ student.section }}">
+    </div>
+
+    <div class="form-group">
+        <label>Date of Joining</label>
+        <input type="date"
+               name="joining_date"
+               value="{{ student.joining_date }}">
+    </div>
+
+    <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date"
+               name="dob"
+               value="{{ student.dob }}">
+    </div>
+
+    <div class="form-group">
+        <label>Gender</label>
+
+        <select name="gender">
+
+            <option value="Male"
+            {% if student.gender == "Male" %}selected{% endif %}>
+            Male
+            </option>
+
+            <option value="Female"
+            {% if student.gender == "Female" %}selected{% endif %}>
+            Female
+            </option>
+
+            <option value="Other"
+            {% if student.gender == "Other" %}selected{% endif %}>
+            Other
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+        <label>Father Name</label>
+        <input type="text"
+               name="father_name"
+               value="{{ student.father_name }}">
+    </div>
+
+    <div class="form-group">
+        <label>Mother Name</label>
+        <input type="text"
+               name="mother_name"
+               value="{{ student.mother_name }}">
+    </div>
+
+    <div class="form-group">
+        <label>Father Phone</label>
+        <input type="text"
+               name="father_phone"
+               value="{{ student.father_phone }}">
+    </div>
+
+    <div class="form-group">
+        <label>Mother Phone</label>
+        <input type="text"
+               name="mother_phone"
+               value="{{ student.mother_phone }}">
+    </div>
+
+    <div class="form-group full-width">
+        <label>Address</label>
+
+        <textarea name="address">{{ student.address }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Caste</label>
+
+        <select name="caste">
+
+            <option value="OC"
+            {% if student.caste == "OC" %}selected{% endif %}>
+            OC
+            </option>
+
+            <option value="BC"
+            {% if student.caste == "BC" %}selected{% endif %}>
+            BC
+            </option>
+
+            <option value="SC"
+            {% if student.caste == "SC" %}selected{% endif %}>
+            SC
+            </option>
+
+            <option value="ST"
+            {% if student.caste == "ST" %}selected{% endif %}>
+            ST
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+        <label>Aadhaar</label>
+        <input type="text"
+               name="aadhaar"
+               value="{{ student.aadhaar }}">
+    </div>
+
+    <div class="form-group">
+        <label>Blood Group</label>
+
+        <select name="blood_group">
+
+            <option value="A+"
+            {% if student.blood_group == "A+" %}selected{% endif %}>A+</option>
+
+            <option value="A-"
+            {% if student.blood_group == "A-" %}selected{% endif %}>A-</option>
+
+            <option value="B+"
+            {% if student.blood_group == "B+" %}selected{% endif %}>B+</option>
+
+            <option value="B-"
+            {% if student.blood_group == "B-" %}selected{% endif %}>B-</option>
+
+            <option value="O+"
+            {% if student.blood_group == "O+" %}selected{% endif %}>O+</option>
+
+            <option value="O-"
+            {% if student.blood_group == "O-" %}selected{% endif %}>O-</option>
+
+            <option value="AB+"
+            {% if student.blood_group == "AB+" %}selected{% endif %}>AB+</option>
+
+            <option value="AB-"
+            {% if student.blood_group == "AB-" %}selected{% endif %}>AB-</option>
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+        <label>Previous School</label>
+        <input type="text"
+               name="previous_school"
+               value="{{ student.previous_school }}">
+    </div>
+
+    <div class="form-group">
+        <label>Emergency Contact</label>
+        <input type="text"
+               name="emergency_contact"
+               value="{{ student.emergency_contact }}">
+    </div>
+
+</div>
+
+<button type="submit" class="update-btn">
+    Update Student
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

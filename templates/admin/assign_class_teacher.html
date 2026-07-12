@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">Assign Class Teacher</h2>
+
+<div class="card p-4">
+
+<form method="POST">
+
+    <div class="mb-3">
+        <label>Select Class</label>
+        <select name="class" class="form-control">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Select Faculty</label>
+        <select name="faculty_id" class="form-control">
+
+            {% for f in faculty %}
+            <option value="{{ f.faculty_id }}">
+                {{ f.name }} ({{ f.subject }})
+            </option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Assign</button>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,361 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:#f4f7fb;
+}
+
+.page-title{
+    font-size:42px;
+    font-weight:700;
+    color:#2c3e50;
+    margin-bottom:30px;
+}
+
+.info-container{
+    display:flex;
+    gap:20px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+}
+
+.info-card{
+    background:white;
+    padding:22px 28px;
+    border-radius:18px;
+    box-shadow:0px 4px 14px rgba(0,0,0,0.08);
+    min-width:240px;
+    border-top:5px solid #3498db;
+}
+
+.info-title{
+    font-size:13px;
+    color:#7f8c8d;
+    margin-bottom:10px;
+}
+
+.info-value{
+    font-size:28px;
+    font-weight:bold;
+    color:#2c3e50;
+}
+
+.table-card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0px 4px 14px rgba(0,0,0,0.08);
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1450px;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:16px 10px;
+    text-align:center;
+    font-size:15px;
+}
+
+td{
+    border:1px solid #e5e5e5;
+    padding:10px;
+    text-align:center;
+    background:white;
+}
+
+.day-cell{
+    background:#f8f9fa;
+    font-weight:bold;
+    font-size:16px;
+    width:120px;
+}
+
+.period-time{
+    display:block;
+    font-size:11px;
+    color:#dfe6e9;
+    margin-top:5px;
+}
+
+.subject-box{
+    background:#eef6ff;
+    border-left:5px solid #3498db;
+    border-radius:12px;
+    min-height:70px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    transition:0.3s;
+}
+
+.subject-box:hover{
+    transform:translateY(-2px);
+    box-shadow:0px 4px 10px rgba(0,0,0,0.08);
+}
+
+.subject{
+    font-size:16px;
+    font-weight:bold;
+    color:#2c3e50;
+}
+
+.class-text{
+    font-size:12px;
+    color:#777;
+    margin-top:4px;
+}
+
+.empty{
+    color:#bbb;
+    font-size:15px;
+}
+
+.break-cell{
+    background:#fff3cd;
+    color:#856404;
+    font-weight:bold;
+    width:70px;
+}
+
+.lunch-cell{
+    background:#d4edda;
+    color:#155724;
+    font-weight:bold;
+    width:80px;
+}
+
+tbody tr:hover{
+    background:#f9fbff;
+}
+
+</style>
+
+<div class="page-title">
+    📅 Faculty Timetable
+</div>
+
+<!-- FACULTY INFO -->
+
+<div class="info-container">
+
+    <div class="info-card">
+
+        <div class="info-title">
+            Faculty Name
+        </div>
+
+        <div class="info-value">
+            {{ faculty.name }}
+        </div>
+
+    </div>
+
+    <div class="info-card">
+
+        <div class="info-title">
+            Subject
+        </div>
+
+        <div class="info-value">
+            {{ faculty.subject }}
+        </div>
+
+    </div>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="table-card">
+
+<table>
+
+    <thead>
+
+    <tr>
+
+        <th>Day</th>
+
+        <th>
+            P1
+            <span class="period-time">
+                9:00 - 9:45
+            </span>
+        </th>
+
+        <th>
+            P2
+            <span class="period-time">
+                9:45 - 10:30
+            </span>
+        </th>
+
+        <th class="break-cell">
+            ☕ Break
+        </th>
+
+        <th>
+            P3
+            <span class="period-time">
+                10:40 - 11:25
+            </span>
+        </th>
+
+        <th>
+            P4
+            <span class="period-time">
+                11:25 - 12:10
+            </span>
+        </th>
+
+        <th class="lunch-cell">
+            🍱 Lunch
+        </th>
+
+        <th>
+            P5
+            <span class="period-time">
+                1:10 - 1:55
+            </span>
+        </th>
+
+        <th>
+            P6
+            <span class="period-time">
+                1:55 - 2:40
+            </span>
+        </th>
+
+        <th class="break-cell">
+            ☕ Break
+        </th>
+
+        <th>
+            P7
+            <span class="period-time">
+                2:50 - 3:35
+            </span>
+        </th>
+
+        <th>
+            P8
+            <span class="period-time">
+                3:35 - 4:20
+            </span>
+        </th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% set days = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+    ] %}
+
+    {% set periods = [
+        'P1',
+        'P2',
+        'P3',
+        'P4',
+        'P5',
+        'P6',
+        'P7',
+        'P8'
+    ] %}
+
+    {% for day in days %}
+
+    <tr>
+
+        <td class="day-cell">
+            {{ day }}
+        </td>
+
+        {% for period in periods %}
+
+            {% set found = namespace(value=False) %}
+
+            {% for s in faculty_schedule %}
+
+                {% if s.day == day and s.period == period %}
+
+                    <td>
+
+                        <div class="subject-box">
+
+                            <div class="subject">
+                                {{ s.subject }}
+                            </div>
+
+                            <div class="class-text">
+                                Class {{ s.class }}
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    {% set found.value = True %}
+
+                {% endif %}
+
+            {% endfor %}
+
+            {% if not found.value %}
+
+                <td>
+                    <div class="empty">
+                        Free
+                    </div>
+                </td>
+
+            {% endif %}
+
+            {% if period == 'P2' or period == 'P6' %}
+
+                <td class="break-cell">
+                    ☕ Break
+                </td>
+
+            {% endif %}
+
+            {% if period == 'P4' %}
+
+                <td class="lunch-cell">
+                    🍱 Lunch
+                </td>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

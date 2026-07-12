@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+    font-size:36px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.result-box{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0px 4px 10px rgba(0,0,0,0.1);
+}
+
+select{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    margin-bottom:20px;
+    width:250px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+    padding:14px;
+    text-align:center;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+.no-data{
+    text-align:center;
+    padding:25px;
+    color:gray;
+}
+
+</style>
+
+<div class="page-title">
+    📈 View Results
+</div>
+
+<div class="result-box">
+
+<form method="GET">
+
+    <select name="student_id" onchange="this.form.submit()">
+
+        <option value="">
+            Select Student Roll Number
+        </option>
+
+        {% for s in students %}
+
+        <option
+            value="{{ s.student_id }}"
+            {% if selected_student == s.student_id %}
+                selected
+            {% endif %}
+        >
+
+            {{ s.student_id }} - {{ s.name }}
+
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+</form>
+
+{% if results %}
+
+<table>
+
+    <tr>
+
+        <th>Exam</th>
+
+        {% for r in results %}
+            <th>{{ r.subject }}</th>
+        {% endfor %}
+
+        <th>Total</th>
+
+    </tr>
+
+    {% set exams = ['FA1','FA2','FA3','FA4','SA1','SA2'] %}
+
+    {% set grand_total = namespace(value=0) %}
+
+    {% for exam in exams %}
+
+    {% set row_total = namespace(value=0) %}
+
+    <tr>
+
+        <td>
+            <b>{{ exam }}</b>
+        </td>
+
+        {% for r in results %}
+
+            {% set mark = r.marks.get(exam, '-') %}
+
+            <td>
+
+                {{ mark }}
+
+            </td>
+
+            {% if mark != '-' %}
+                {% set row_total.value = row_total.value + mark %}
+            {% endif %}
+
+        {% endfor %}
+
+        <td>
+            <b>{{ row_total.value }}</b>
+        </td>
+
+    </tr>
+
+    {% set grand_total.value = grand_total.value + row_total.value %}
+
+    {% endfor %}
+
+    <tr style="background:#ecf5ff;font-weight:bold;">
+
+        <td colspan="{{ results|length + 1 }}">
+
+            Grand Total
+
+        </td>
+
+        <td>
+
+            {{ grand_total.value }}
+
+        </td>
+
+    </tr>
+
+</table>
+
+{% else %}
+
+<div class="no-data">
+    Select student to view results 📄
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
