@@ -635,6 +635,9 @@ def gallery():
 
         image.save(os.path.join(UPLOAD_FOLDER, filename))
 
+        print("Saved to:", os.path.join(UPLOAD_FOLDER, filename))
+        print("Exists:", os.path.exists(os.path.join(UPLOAD_FOLDER, filename)))
+
         gallery_collection.insert_one({
 
             "title": title,
