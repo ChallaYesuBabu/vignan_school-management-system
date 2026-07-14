@@ -72,22 +72,25 @@ def add_student():
     return render_template('admin/create_student.html')
 
 
+
 @admin.route('/admin/add-notice', methods=['GET', 'POST'])
 def add_notice_route():
 
     if request.method == 'POST':
-        data = request.form
 
         notice_data = {
-            "title": data['title'],
-            "content": data['content']
+            "title": request.form["title"],
+            "content": request.form["content"],
+            "audience": request.form["audience"]
         }
 
         add_notice(notice_data)
 
-        return "Notice Added Successfully ✅"
+        flash("Notice Added Successfully ✅", "success")
 
-    return render_template('admin/add_notice.html')
+        return redirect('/admin/add-notice')
+
+    return render_template("admin/add_notice.html")
 # =========================
 # CREATE FACULTY
 # ========================

@@ -11,7 +11,7 @@ from models.db import attendance_collection
 from models.db import quiz_result_collection
 from models.db import quiz_collection
 from bson.objectid import ObjectId
-
+from models.db import notice_collection
 student = Blueprint('student', __name__, template_folder='../templates')
 
 @student.route('/student/today-diary')
@@ -314,12 +314,18 @@ def view_marks():
 
 
 @student.route('/student/notices')
-def view_notices():
-    if session.get('role') != 'student':
-        return redirect('/login')
-    notices = get_notices()
+def student_notices():
 
-    return render_template('student/view_notice.html', notices=notices)
+    notices = list(
+        notice_collection.find({
+            "audience": {"$in": ["students", "both"]}
+        }).sort("created_at", -1)
+    )
+
+    return render_template(
+        "student/notices.html",
+        notices=notices
+    )
 
 from datetime import datetime
 

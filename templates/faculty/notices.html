@@ -9,9 +9,18 @@
     {% for notice in notices %}
 
     <div class="notice-card">
+
         <h3>{{ notice.title }}</h3>
-        <p>{{ notice.description }}</p>
-        <small>📅{{ notice.date }}</small>
+
+        <p>{{ notice.content }}</p>
+
+        <small>
+            📅
+            {% if notice.created_at %}
+                {{ notice.created_at.strftime('%d-%m-%Y %I:%M %p') }}
+            {% endif %}
+        </small>
+
     </div>
 
     {% endfor %}
@@ -21,6 +30,7 @@
 <div class="notice-card">
     <h3>No Notices Available</h3>
 </div>
+
 {% endif %}
 
 {% endblock %}

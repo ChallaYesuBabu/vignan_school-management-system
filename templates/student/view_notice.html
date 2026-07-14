@@ -44,9 +44,9 @@
 }
 
 .notice-date{
+    text-align:right;
     color:gray;
     font-size:14px;
-    text-align:right;
 }
 
 .no-notice{
@@ -69,20 +69,26 @@
 
 <div class="notice-container">
 
-    {% for n in notices %}
+    {% for notice in notices %}
 
     <div class="notice-card">
 
         <div class="notice-title">
-            {{ n.title }}
+            {{ notice.title }}
         </div>
 
         <div class="notice-content">
-            {{ n.content }}
+            {{ notice.content }}
         </div>
 
         <div class="notice-date">
-            📅 {{ n.created_at }}
+
+            📅
+
+            {% if notice.created_at %}
+                {{ notice.created_at.strftime("%d-%m-%Y %I:%M %p") }}
+            {% endif %}
+
         </div>
 
     </div>
@@ -94,7 +100,7 @@
 {% else %}
 
 <div class="no-notice">
-    No notices available 📄
+    📄 No notices available.
 </div>
 
 {% endif %}

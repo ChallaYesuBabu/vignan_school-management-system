@@ -842,8 +842,11 @@ def faculty_timetable():
 def faculty_notices():
 
     notices = list(
-        notice_collection.find().sort("date", -1)
+        notice_collection.find({
+            "audience": {"$in": ["teachers", "both"]}
+        }).sort("created_at", -1)
     )
+
     return render_template(
         "faculty/notices.html",
         notices=notices
