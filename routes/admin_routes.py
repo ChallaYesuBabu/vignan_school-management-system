@@ -306,20 +306,6 @@ def edit_faculty(id):
         faculty=faculty
     )
 
-from bson.objectid import ObjectId
-from flask import redirect, flash
-from models.db import faculty_collection
-
-@admin.route('/admin/delete-faculty/<id>')
-def delete_faculty(id):
-
-    faculty_collection.delete_one({
-        "_id": ObjectId(id)
-    })
-
-    flash("Faculty deleted successfully ✅", "success")
-
-    return redirect('/admin/manage-faculty')
 
 from models.db import timetable_collection
 from models.db import faculty_collection
