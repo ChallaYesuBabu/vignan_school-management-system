@@ -685,3 +685,25 @@ def delete_photo(id):
     flash("Photo Deleted")
 
     return redirect('/admin/gallery')
+
+
+@admin.route('/admin/delete-faculty/<id>')
+def delete_faculty(id):
+
+    faculty = faculty_collection.find_one({
+        "_id": ObjectId(id)
+    })
+
+    if faculty:
+
+        users_collection.delete_one({
+            "user_id": faculty["faculty_id"]
+        })
+
+        faculty_collection.delete_one({
+            "_id": ObjectId(id)
+        })
+
+        flash("Faculty Deleted Successfully")
+
+    return redirect('/admin/manage-faculty')
