@@ -10,6 +10,7 @@ from models.db import attendance_collection
 from models.db import diary_collection
 from datetime import datetime
 from models.db import quiz_collection
+from models.db import notice_collection
 
 from models.db import students_collection, faculty_collection, users_collection, db
 
@@ -835,4 +836,14 @@ def faculty_timetable():
 
         faculty_schedule=faculty_schedule
 
+    )
+
+@faculty.route('/faculty/notices')
+def faculty_notices():
+
+    notices = list(notice_collection.find().sort("date", -1))
+
+    return render_template(
+        "faculty/notices.html",
+        notices=notices
     )

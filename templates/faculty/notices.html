@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>📢 Notice Board</h2>
+
+{% if notices %}
+
+    {% for notice in notices %}
+
+    <div class="notice-card">
+        <h3>{{ notice.title }}</h3>
+        <p>{{ notice.description }}</p>
+        <small>{{ notice.date }}</small>
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="notice-card">
+    <h3>No Notices Available</h3>
+    <p>There are currently no notices.</p>
+</div>
+
+{% endif %}
+
+{% endblock %}

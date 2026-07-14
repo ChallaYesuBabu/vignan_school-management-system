@@ -19,3 +19,4 @@ quiz_result_collection = db['quiz_results']
 timetable_collection = db['timetable']
 password_request_collection = db["password_requests"]
 gallery_collection = db.gallery
+notice_collection = db["notices"]
