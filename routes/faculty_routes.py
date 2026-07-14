@@ -844,7 +844,6 @@ def faculty_notices():
     notices = list(
         notice_collection.find().sort("date", -1)
     )
-
     return render_template(
         "faculty/notices.html",
         notices=notices
