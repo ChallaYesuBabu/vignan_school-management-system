@@ -841,7 +841,9 @@ def faculty_timetable():
 @faculty.route('/faculty/notices')
 def faculty_notices():
 
-    notices = list(notice_collection.find().sort("date", -1))
+    notices = list(
+        notice_collection.find().sort("date", -1)
+    )
 
     return render_template(
         "faculty/notices.html",

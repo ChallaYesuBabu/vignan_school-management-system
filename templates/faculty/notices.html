@@ -11,7 +11,7 @@
     <div class="notice-card">
         <h3>{{ notice.title }}</h3>
         <p>{{ notice.description }}</p>
-        <small>{{ notice.date }}</small>
+        <small>📅 {{ notice.date }}</small>
     </div>
 
     {% endfor %}
@@ -20,7 +20,6 @@
 
 <div class="notice-card">
     <h3>No Notices Available</h3>
-    <p>There are currently no notices.</p>
 </div>
 
 {% endif %}
